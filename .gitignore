@@ -1,5 +1,9 @@
 *.PNG
 *.png
+video
+video/
+uploads/
+uploads
 *.jpg
 *.JPEG
 *.JPG

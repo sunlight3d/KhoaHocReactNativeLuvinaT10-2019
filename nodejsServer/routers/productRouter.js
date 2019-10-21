@@ -165,7 +165,7 @@ router.post('/uploads', async (req, res) => {
                     result: "failed",
                     message: `Cannot upload files. Error: ${error}`
                 })
-                break;
+                return
             }
             imageNames.push(`${fileName}.${fileExtension}`)
             //Kiểm tra file cuối cùng trong list ?
