@@ -6,6 +6,8 @@ npm install react-native-super-grid
 npm install react-navigation 
 npm install axios
 npm install firebase
+npm install native-base
+npm i react-navigation-stack
 */
 
 import {AppRegistry} from 'react-native';
@@ -16,7 +18,8 @@ import LifeCycleComponent from './components/LifeCycleComponent'
 import DetailProductComponent from './components/DetailProductComponent'
 
 import {name as appName} from './app.json';
-import {createAppContainer, createStackNavigator} from 'react-navigation'
+import {createAppContainer} from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
 //createStackNavigator = HOC = Higher order component
 //added props: 
 const StactNavigator = createStackNavigator({
