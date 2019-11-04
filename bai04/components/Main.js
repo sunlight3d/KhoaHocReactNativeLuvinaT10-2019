@@ -13,26 +13,9 @@ const {width, height} = Dimensions.get('window')
 const textInputWidth = 0.8 * width
 const textInputHeight = 45
 const borderRadius = 10
-export default class Main extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    _loginFacebook() {
-        alert("Login facebook")
-    }
-    _loginGoogle() {
-        alert("Login Google")
-    }
-    _loginTwitter() {
-        alert("Login Twitter")
-    }
-    render() {
-        return <View style={styles.container}>
-            <View style={styles.viewProfile}>
-                <Image source={require('../images/mycat.png')} 
-                    style={styles.imageProfile} />
-            </View>
-            <MyTextInput style={styles.myTextInput} 
+const _Login = (props) => {
+    return <View>
+        <MyTextInput style={styles.myTextInput} 
                     title={"Email"} placeholder={"Enter your email"} 
                     validate={"email"}
                     iconName={"user"}/>
@@ -44,6 +27,61 @@ export default class Main extends React.Component {
              <TouchableHighlight style={styles.button}>
                 <Text style={styles.textButton}>Login to your account</Text>
              </TouchableHighlight>
+    </View>
+}
+const _Register = (props) => {
+    return <View>
+        <MyTextInput style={styles.myTextInput} 
+                    title={"Email"} placeholder={"Enter your email"} 
+                    validate={"email"}
+                    iconName={"user"}/>
+            <MyTextInput style={styles.myTextInput} 
+                    title={"Password"} placeholder={"Enter your password"} secureTextEntry 
+                    validate={"password"}
+                    iconName={"lock"}/>  
+            <MyTextInput style={styles.myTextInput} 
+                    title={"Retype password"} placeholder={"Retype your password"} secureTextEntry 
+                    validate={"password"}
+                    iconName={"lock"}/>    
+                   
+             <TouchableHighlight style={styles.button}>
+                <Text style={styles.textButton}> Register</Text>
+             </TouchableHighlight>
+    </View>
+}
+export default class Main extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            isLogin: true
+        }
+    }
+    _loginFacebook() {
+        alert("Login facebook")
+    }
+    _loginGoogle() {
+        alert("Login Google")
+    }
+    _loginTwitter() {
+        alert("Login Twitter")
+    }
+    render() {
+        const {isLogin} = this.state
+        return <View style={styles.container}>
+            <View style={styles.viewProfile}>
+                <Image source={require('../images/mycat.png')} 
+                    style={styles.imageProfile} />
+            </View>
+            <View style={styles.headerView}>
+                <TouchableHighlight onPress={() => {
+                    this.setState({isLogin: true})
+                }}><Text>Login</Text></TouchableHighlight>
+                <TouchableHighlight
+                onPress={() => {
+                    this.setState({isLogin: false})
+                }}><Text>Signup</Text></TouchableHighlight>
+            </View>
+            {isLogin == true ? <_Login /> : <_Register />}
              <View style={styles.viewLine}>
                 <View style={styles.line}/>
                 <Text>OR</Text>
@@ -133,6 +171,13 @@ const styles = StyleSheet.create({
         color: 'black',
         
     },
+    headerView: {
+        flexDirection: 'row',
+        height: 40,
+        justifyContent:'center',
+        alignItems:'center', 
+        alignSelf: 'stretch'
+    },
     bottomView: {
         flexDirection: 'row',
         height: 40,
@@ -140,6 +185,7 @@ const styles = StyleSheet.create({
         alignItems:'center', 
         alignSelf: 'stretch'
     }, 
+    
     icon: {
         padding: 15,
     }
