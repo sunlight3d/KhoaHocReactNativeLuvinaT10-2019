@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "321050375199",
+    "firebase_url": "https://khoahocreactnativeluvina.firebaseio.com",
+    "project_id": "khoahocreactnativeluvina",
+    "storage_bucket": "khoahocreactnativeluvina.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321050375199:android:487819c2da10f1b88e512a",
+        "android_client_info": {
+          "package_name": "com.bai03"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "321050375199-u7ke1jmimbpnk2tr4rfs0ko5luqdia5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8tZVG9a_9QQCzqTW2A07Nkh6cvd-cukc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "321050375199-u7ke1jmimbpnk2tr4rfs0ko5luqdia5p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
