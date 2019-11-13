@@ -2,8 +2,8 @@ import firebase from 'firebase'
 
 const firebaseConfig = {
     apiKey: "AIzaSyC8tZVG9a_9QQCzqTW2A07Nkh6cvd-cukc",
-    authDomain: "project-id.firebaseapp.com",
-    databaseURL: "https://project-id.firebaseio.com",
+    authDomain: "khoahocreactnativeluvina.firebaseapp.com",
+    databaseURL: "https://khoahocreactnativeluvina.firebaseio.com",
     projectId: "khoahocreactnativeluvina",
     storageBucket: "khoahocreactnativeluvina.appspot.com",
     messagingSenderId: "sender-id",
@@ -14,8 +14,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 const authentication = firebase.auth()
 const firebaseDatabase = firebase.database()
+var provider = new firebase.auth.FacebookAuthProvider();
+provider.addScope('user_birthday');
 // authentication.createUserWithEmailAndPassword("hoang@gmail.com", "123456")
-
-export {authentication, firebaseDatabase}
+export {provider, authentication, firebaseDatabase}
 
 

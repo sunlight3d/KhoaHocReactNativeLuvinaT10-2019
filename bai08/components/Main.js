@@ -8,7 +8,7 @@ import {View,
     TouchableHighlight} from 'react-native'
 import MyTextInput from './MyTextInput'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import {authentication, firebaseDatabase} from '../Firebase/Firebase'
+import {provider, authentication, firebaseDatabase} from '../Firebase/Firebase'
 const {width, height} = Dimensions.get('window')
 const textInputWidth = 0.8 * width
 const textInputHeight = 45
@@ -26,11 +26,13 @@ const _Login = (props) => {
                     iconName={"lock"}/>   
                    
              <TouchableHighlight style={styles.button} onPress={() => {
-                 authentication.signInWithEmailAndPassword("abc@gmail.com", "123456").
+                 authentication.signInWithEmailAndPassword("hoang1@gmail.com", "123456").
                  then(() => {
-
-                 }).
-                 navigate("ProductList", {name: "Hoang"})
+                    navigate("ProductList", {name: "Hoang"})
+                 }).catch(error => {
+                    alert(`CAnnot signin, Error: ${error}`)
+                 })
+                 
              }}>
                 <Text style={styles.textButton}>Login to your account</Text>
              </TouchableHighlight>
@@ -65,7 +67,44 @@ export default class Main extends React.Component {
         }
     }
     _loginFacebook() {
-        alert("Login facebook")
+        //alert("Login facebook")
+        //const provider = authentication.FacebookAuthProvider()
+        /*
+        authentication.signInWithPopup(provider).then(function(result) {
+            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+            var token = result.credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+            // ...
+          }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+          });
+          */         
+         authentication.getRedirectResult().then(function(result) {
+            if (result.credential) {
+              // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+              var token = result.credential.accessToken;
+              // ...
+            }
+            // The signed-in user info.
+            var user = result.user;
+          }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+          });
     }
     _loginGoogle() {
         alert("Login Google")
