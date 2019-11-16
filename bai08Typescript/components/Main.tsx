@@ -16,7 +16,7 @@ const textInputHeight = 45
 const borderRadius = 10
 
 interface Props {
-    navigate: any;    
+    navigate?: object;    
 }
 
 const _Login: React.FC<Props> = (props) => {
@@ -44,7 +44,7 @@ const _Login: React.FC<Props> = (props) => {
              </TouchableHighlight>
     </View>
 }
-const _Register = (props) => {
+const _Register: React.FC<Props> = (props) => {
     const {navigate} = props
     return <View>
         <MyTextInput style={styles.myTextInput} 

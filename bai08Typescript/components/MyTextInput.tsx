@@ -1,4 +1,4 @@
-import React, { Props } from 'react'
+import React from 'react'
 import {View, 
     Text,
     TextInput, Image, 
@@ -7,14 +7,18 @@ import {View,
     TouchableHighlight} from 'react-native'
 import {validateEmail, validatePassword} from '../helpers/validations'
 import Icon from 'react-native-vector-icons/FontAwesome'
-
-export default class MyTextInput extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            typedText: '',
-            firstTimeCheck: true
-        }
+interface Props {
+    title: string
+    iconName: string
+    placeholder: string
+    secureTextEntry?: boolean
+    validate: string
+    style: object
+}
+export default class MyTextInput extends React.Component<Props> {
+    state = {
+        typedText: '',
+        firstTimeCheck: true
     }
     checkValidate(validateString: string) {
         switch(validateString) {

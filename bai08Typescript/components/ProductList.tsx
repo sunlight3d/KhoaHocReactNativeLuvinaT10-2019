@@ -1,5 +1,12 @@
 import React from 'react'
+import {Props} from 'react'
 import {Header} from './Header'
+import {View, TextInput, 
+    FlatList, 
+    Text,
+    Image, 
+    TouchableOpacity,
+    StyleSheet} from 'react-native'
 import {ACTION_INSERT, ACTION_UPDATE} from '../actions/actionTypes'
 var fakeProducts = [{
     productId: "aaa",
@@ -29,26 +36,21 @@ var fakeProducts = [{
     year: 2017,
     url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Alt_Telefon.jpg/330px-Alt_Telefon.jpg'
 }]
-import {View, TextInput, 
-    FlatList, 
-    Text,
-    Image, 
-    TouchableOpacity,
-    StyleSheet} from 'react-native'
-export default class ProductList extends React.Component {
+
+export default class ProductList extends React.Component<{navigation: any}>  {
     state = {
         products: fakeProducts
     }
     componentDidMount() {
         const {name} = this.props.navigation.state.params
     }
-    insertProduct = async (productId, name, year, url) => {
+    insertProduct = async (productId:string, name:string, year: number, url: string) => {
         let {products} = this.state
         this.setState({
             products: products.concat({productId, name, year, url})
         })
     }
-    updateProduct = async (productId, name, year, url) => {
+    updateProduct = async (productId:string, name: string, year: number, url: string) => {
         /*
         let updatedProducts = [...this.state.products]
         updatedProducts.forEach(product => {
@@ -98,7 +100,17 @@ export default class ProductList extends React.Component {
         </View>
     }
 }
-const _ProductItem = (props) => {
+interface ProductItemProps {
+    productId: string
+    name: string
+    year: number
+    insertProduct:(productId:string, name:string, year: number, url: string) => void
+    updateProduct: (productId:string, name: string, year: number, url: string) => void
+    index: number
+    navigate: any
+    url: string
+}
+const _ProductItem:React.FC<ProductItemProps> = (props) => {
     //alert(`props = ${JSON.stringify(Object.keys(props))}`)
     const {productId, name, year, 
         insertProduct, updateProduct,

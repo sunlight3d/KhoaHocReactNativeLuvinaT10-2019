@@ -6,7 +6,7 @@ import {AppRegistry} from 'react-native';
 // import App from './App';
 import {name as appName} from './app.json';
 import Main from './components/Main'
-// import ProductList from './components/ProductList'
+import ProductList from './components/ProductList'
 // import DetailProduct from './components/DetailProduct'
 
 import {createAppContainer} from 'react-navigation'
@@ -20,12 +20,12 @@ const StackNavigator = createStackNavigator({
             header: null
         }
     },
-    // ProductList: {
-    //     screen: ProductList,
-    //     navigationOptions: {
-    //         header: null
-    //     }
-    // },
+    ProductList: {
+        screen: ProductList,
+        navigationOptions: {
+            header: null
+        }
+    },
     // DetailProduct: {
     //     screen: DetailProduct,
     //     navigationOptions: {

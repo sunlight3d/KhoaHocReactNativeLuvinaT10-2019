@@ -11,7 +11,7 @@ import {View,
     StyleSheet} from 'react-native'
 import {ACTION_INSERT, ACTION_UPDATE} from '../actions/actionTypes'
 
-export default class DetailProduct extends React.Component {
+export default class DetailProduct extends React.Component<{navigation: any}> {
     state = {
         productId: "", name:"", year: "", url :""
     }
