@@ -5,7 +5,8 @@ import {View,
     StyleSheet,
     Dimensions,
     KeyboardAvoidingView,
-    TouchableHighlight} from 'react-native'
+    TouchableHighlight,
+    Alert} from 'react-native'
 import MyTextInput from './MyTextInput'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {provider, authentication, firebaseDatabase} from '../Firebase/Firebase'
@@ -13,8 +14,13 @@ const {width, height} = Dimensions.get('window')
 const textInputWidth = 0.8 * width
 const textInputHeight = 45
 const borderRadius = 10
-const _Login = (props) => {
-    const {navigate} = props
+
+interface Props {
+    navigate: any;    
+}
+
+const _Login: React.FC<Props> = (props) => {
+    const {navigate} = props    
     return <View>
         <MyTextInput style={styles.myTextInput} 
                     title={"Email"} placeholder={"Enter your email"} 
@@ -30,7 +36,7 @@ const _Login = (props) => {
                  then(() => {
                     navigate("ProductList", {name: "Hoang"})
                  }).catch(error => {
-                    alert(`CAnnot signin, Error: ${error}`)
+                    Alert.alert(`CAnnot signin, Error: ${error}`)
                  })
                  
              }}>
@@ -60,61 +66,21 @@ const _Register = (props) => {
     </View>
 }
 export default class Main extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            isLogin: true
-        }
+    state = {
+        isLogin: true
     }
     _loginFacebook() {
-        //alert("Login facebook")
-        //const provider = authentication.FacebookAuthProvider()
-        /*
-        authentication.signInWithPopup(provider).then(function(result) {
-            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-            var token = result.credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-            // ...
-          }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
-          });
-          */         
-         authentication.getRedirectResult().then(function(result) {
-            if (result.credential) {
-              // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-              var token = result.credential.accessToken;
-              // ...
-            }
-            // The signed-in user info.
-            var user = result.user;
-          }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
-          });
+        Alert.alert("Login facebook")                 
     }
     _loginGoogle() {
-        alert("Login Google")
+        Alert.alert("Login Google")
     }
     _loginTwitter() {
-        alert("Login Twitter")
+        Alert.alert("Login Twitter")
     }
     render() {
         const {isLogin} = this.state
-        //alert(Object.keys(this.props))
+        //Alert.alert(Object.keys(this.props))
         const {navigate} = this.props.navigation
         const {navigation} = this.props
         return <View style={styles.container}>
