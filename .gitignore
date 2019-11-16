@@ -1,5 +1,5 @@
-*.PNG
-*.png
+#*.PNG
+#*.png
 video
 video/
 uploads/

@@ -36,3 +36,6 @@ const StactNavigator = createStackNavigator({
 })
 const AppContainer = createAppContainer(StactNavigator);
 AppRegistry.registerComponent(appName, () => AppContainer);
+
+
+
