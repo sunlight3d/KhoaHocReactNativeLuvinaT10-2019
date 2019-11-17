@@ -1,12 +1,18 @@
-import React, {Component} from 'react'
+import React from 'react'
+import {Component} from 'react'
 import {View, 
     StyleSheet,
     TouchableOpacity,
     Image,
     Text
 } from 'react-native'
-
-export const Header = (props) => {
+interface HeaderProps {
+    actionBack: (event: object) => void
+    actionAdd: (event: object) => void 
+    title: string
+    options: {hideBackButton: boolean}
+}
+export const Header:React.FC<HeaderProps> = (props) => {
     const {actionBack, actionAdd, title} = props
     const {hideBackButton} = props.options
     return <View style={styles.container}>

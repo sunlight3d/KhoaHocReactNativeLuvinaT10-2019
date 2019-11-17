@@ -14,9 +14,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 const authentication = firebase.auth()
 const firebaseDatabase = firebase.database()
-var provider = new firebase.auth.FacebookAuthProvider();
-provider.addScope('user_birthday');
 // authentication.createUserWithEmailAndPassword("hoang@gmail.com", "123456")
-export {provider, authentication, firebaseDatabase}
+export {authentication, firebaseDatabase}
 
 

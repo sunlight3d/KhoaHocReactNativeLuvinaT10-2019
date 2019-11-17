@@ -9,14 +9,17 @@ import {View,
     Alert} from 'react-native'
 import MyTextInput from './MyTextInput'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import {provider, authentication, firebaseDatabase} from '../Firebase/Firebase'
+import {authentication, firebaseDatabase} from '../Firebase/Firebase'
+import { NavigationStackProp } from 'react-navigation-stack'
+import {LoginManager } from 'react-native-fbsdk'
 const {width, height} = Dimensions.get('window')
 const textInputWidth = 0.8 * width
 const textInputHeight = 45
 const borderRadius = 10
 
+
 interface Props {
-    navigate?: object;    
+    navigate?: (screenName: string, params: object)=>void
 }
 
 const _Login: React.FC<Props> = (props) => {
@@ -31,14 +34,13 @@ const _Login: React.FC<Props> = (props) => {
                     validate={"password"}
                     iconName={"lock"}/>   
                    
-             <TouchableHighlight style={styles.button} onPress={() => {
+             <TouchableHighlight style={styles.button} onPress={() => {                 
                  authentication.signInWithEmailAndPassword("hoang1@gmail.com", "123456").
                  then(() => {
-                    navigate("ProductList", {name: "Hoang"})
+                    navigate!("ProductList", {name: "Hoang"})
                  }).catch(error => {
-                    Alert.alert(`CAnnot signin, Error: ${error}`)
-                 })
-                 
+                    Alert.alert(`Cannot signin, Error: ${error}`)
+                 })                 
              }}>
                 <Text style={styles.textButton}>Login to your account</Text>
              </TouchableHighlight>
@@ -65,12 +67,27 @@ const _Register: React.FC<Props> = (props) => {
              </TouchableHighlight>
     </View>
 }
-export default class Main extends React.Component {
+export default class Main extends React.Component<{navigation: NavigationStackProp<{}>}> {
     state = {
         isLogin: true
     }
     _loginFacebook() {
-        Alert.alert("Login facebook")                 
+        // Alert.alert("Login facebook")             
+        LoginManager.logInWithPermissions(["public_profile"]).then(
+            (result:any) =>  {
+                if (result.isCancelled) {
+                    console.log("Login cancelled");
+                } else {
+                    console.log(
+                        "Login success with permissions: " +
+                        result.grantedPermissions.toString()
+                    );
+
+                }
+            }            
+        ).catch((error:any) => {
+            console.log("Login fail with error: " + error);
+        })
     }
     _loginGoogle() {
         Alert.alert("Login Google")

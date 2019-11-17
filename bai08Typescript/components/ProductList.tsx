@@ -8,6 +8,8 @@ import {View, TextInput,
     TouchableOpacity,
     StyleSheet} from 'react-native'
 import {ACTION_INSERT, ACTION_UPDATE} from '../actions/actionTypes'
+import { NavigationStackProp } from 'react-navigation-stack'
+
 var fakeProducts = [{
     productId: "aaa",
     name: 'iphone 3',
@@ -37,7 +39,7 @@ var fakeProducts = [{
     url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Alt_Telefon.jpg/330px-Alt_Telefon.jpg'
 }]
 
-export default class ProductList extends React.Component<{navigation: any}>  {
+export default class ProductList extends React.Component<{navigation: NavigationStackProp<{}>}>  {
     state = {
         products: fakeProducts
     }
