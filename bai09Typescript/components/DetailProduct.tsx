@@ -1,4 +1,5 @@
 import React from 'react'
+import {Component} from 'react'
 import ImagePicker from 'react-native-image-crop-picker'
 
 import {View, 
@@ -9,9 +10,28 @@ import {View,
     TextInput,
     Platform,
     StyleSheet} from 'react-native'
+import {Image as CropPickerImage} from 'react-native-image-crop-picker'
 import {ACTION_INSERT, ACTION_UPDATE} from '../actions/actionTypes'
+import { NavigationStackProp } from 'react-navigation-stack'
 
-export default class DetailProduct extends React.Component {
+type DetailProductProps = {
+    navigation: {
+        state: {
+            params: {
+                productId: string
+                name: string
+                year: number
+                url: string
+                index: number
+                actionType: string, 
+                insertProduct: Function 
+                updateProduct: Function
+            }
+        },
+        goBack: Function
+    }
+}
+export default class DetailProduct extends Component<DetailProductProps> {
     state = {
         productId: "", name:"", year: "", url :""
     }
@@ -30,12 +50,12 @@ export default class DetailProduct extends React.Component {
           })
           */
          try {
-            let images = await ImagePicker.openPicker({multiple: true})    
+            debugger
+            let images:any = await ImagePicker.openPicker({multiple: false})    
             if(images.length > 0) {
                 this.setState({url: Platform.OS === 'ios'?images[0].sourceURL: 
                                         images[0].path})
-            }
-            console.log("aaa")    
+            }   
          } catch(error) {
             console.log(`CAnnot open ImagePicker.Error: ${error}`)
          }

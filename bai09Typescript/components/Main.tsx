@@ -5,15 +5,22 @@ import {View,
     StyleSheet,
     Dimensions,
     KeyboardAvoidingView,
+    Alert,
     TouchableHighlight} from 'react-native'
 import MyTextInput from './MyTextInput'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {provider, authentication, firebaseDatabase} from '../Firebase/Firebase'
+import { NavigationStackProp } from 'react-navigation-stack'
+import { LoginManager, LoginResult, AccessToken } from "react-native-fbsdk";
+
 const {width, height} = Dimensions.get('window')
 const textInputWidth = 0.8 * width
 const textInputHeight = 45
 const borderRadius = 10
-const _Login = (props) => {
+interface LoginProps {
+    navigate: (screenName: string, params: object) => void
+}
+const _Login:React.FC<LoginProps> = (props) => {
     const {navigate} = props
     return <View>
         <MyTextInput style={styles.myTextInput} 
@@ -26,11 +33,13 @@ const _Login = (props) => {
                     iconName={"lock"}/>   
                    
              <TouchableHighlight style={styles.button} onPress={() => {
+                 navigate("ProductList", {name: "Hoang"})
+                 return
                  authentication.signInWithEmailAndPassword("hoang1@gmail.com", "123456").
                  then(() => {
                     navigate("ProductList", {name: "Hoang"})
                  }).catch(error => {
-                    alert(`CAnnot signin, Error: ${error}`)
+                    Alert.alert(`Cannot signin, Error: ${error}`)
                  })
                  
              }}>
@@ -38,7 +47,10 @@ const _Login = (props) => {
              </TouchableHighlight>
     </View>
 }
-const _Register = (props) => {
+interface RegisterProps {
+    navigate?: (screenName: string, params: object)=>void
+}
+const _Register: React.FC<RegisterProps> = (props) => {
     const {navigate} = props
     return <View>
         <MyTextInput style={styles.myTextInput} 
@@ -59,58 +71,37 @@ const _Register = (props) => {
              </TouchableHighlight>
     </View>
 }
-export default class Main extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            isLogin: true
-        }
+interface MainProps {
+    navigation: NavigationStackProp<{ }>;
+}
+export default class Main extends React.Component<MainProps> {
+    state = {
+        isLogin: true
     }
     _loginFacebook() {
-        //alert("Login facebook")
-        //const provider = authentication.FacebookAuthProvider()
-        /*
-        authentication.signInWithPopup(provider).then(function(result) {
-            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-            var token = result.credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-            // ...
-          }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
-          });
-          */         
-         authentication.getRedirectResult().then(function(result) {
-            if (result.credential) {
-              // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-              var token = result.credential.accessToken;
-              // ...
-            }
-            // The signed-in user info.
-            var user = result.user;
-          }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
-          });
+        
+        LoginManager.logInWithPermissions(["public_profile", "email"]).then(
+            function(result:LoginResult) {
+              if (result.isCancelled) {
+                console.log("Login cancelled");
+              } else {
+                
+                AccessToken.getCurrentAccessToken().then(accessToken => {
+                    debugger
+                    console.log("dd")
+                }).catch(error => {
+                    console.log("Cannot get access token:"+error)
+                })
+              }
+            }).catch(function(error) {
+                console.log("Login fail with error: " + error);
+            })
     }
     _loginGoogle() {
-        alert("Login Google")
+        Alert.alert("Login Google")
     }
     _loginTwitter() {
-        alert("Login Twitter")
+        Alert.alert("Login Twitter")
     }
     render() {
         const {isLogin} = this.state

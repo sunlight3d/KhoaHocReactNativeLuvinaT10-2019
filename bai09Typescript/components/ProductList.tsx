@@ -35,20 +35,24 @@ import {View, TextInput,
     Image, 
     TouchableOpacity,
     StyleSheet} from 'react-native'
-export default class ProductList extends React.Component {
+import { NavigationStackProp } from 'react-navigation-stack'
+type ProductListProps = {
+    navigation: NavigationStackProp<{}>;
+};
+export default class ProductList extends React.Component<ProductListProps> {
     state = {
         products: fakeProducts
     }
     componentDidMount() {
-        const {name} = this.props.navigation.state.params
+        
     }
-    insertProduct = async (productId, name, year, url) => {
+    insertProduct = async (productId: string, name: string, year:number, url:string) => {
         let {products} = this.state
         this.setState({
             products: products.concat({productId, name, year, url})
         })
     }
-    updateProduct = async (productId, name, year, url) => {
+    updateProduct = async (productId: string, name: string, year:number, url:string) => {
         /*
         let updatedProducts = [...this.state.products]
         updatedProducts.forEach(product => {
@@ -98,7 +102,17 @@ export default class ProductList extends React.Component {
         </View>
     }
 }
-const _ProductItem = (props) => {
+type ProductItemProps = {
+    productId:string
+    name: string
+    year: number 
+    insertProduct: Function 
+    updateProduct: Function
+    index:number
+    url: string
+    navigate: (screenName: string, params: object)=>void
+}
+const _ProductItem:React.FC<ProductItemProps> = (props) => {
     //alert(`props = ${JSON.stringify(Object.keys(props))}`)
     const {productId, name, year, 
         insertProduct, updateProduct,

@@ -7,15 +7,20 @@ import {View,
     TouchableHighlight} from 'react-native'
 import {validateEmail, validatePassword} from '../helpers/validations'
 import Icon from 'react-native-vector-icons/FontAwesome'
-export default class MyTextInput extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            typedText: '',
-            firstTimeCheck: true
-        }
+interface MyTextInputProps {
+    title: string
+    iconName: string
+    placeholder: string
+    secureTextEntry?: boolean
+    validate: string
+    style: object
+}
+export default class MyTextInput extends React.Component<MyTextInputProps> {
+    state = {
+        typedText: '',
+        firstTimeCheck: true
     }
-    checkValidate(validateString) {
+    checkValidate(validateString: string) {
         switch(validateString) {
             case 'password':
                 return validatePassword(this.state.typedText);
