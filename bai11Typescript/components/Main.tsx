@@ -1,6 +1,40 @@
+interface Point {
+    x: number
+    y: number
+}
+type PointA = {
+    x: number
+    y: number
+}
+interface Point {
+    z: number
+}
+interface Point2 extends Point {
+    xx: number
+}
+type Point3 = {
+    xxx: number
+}
+class MyPoint implements Point3 {
+    constructor() {
+        this.x = 1;
+        this.y = 2;
+        this.z = 3;
+        this.xx = 44;
+        debugger
+    }
+    methodA(){
+        
+        debugger
+    }
+}
+var mp = new MyPoint()
+mp.methodA()
+
 import React from 'react'
 import { Provider, connect } from 'react-redux'
 import store from '../redux/store/store'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import {View, 
     Text,
@@ -15,6 +49,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import {provider, authentication, firebaseDatabase} from '../Firebase/Firebase'
 import { NavigationStackProp } from 'react-navigation-stack'
 import { LoginManager, LoginResult, AccessToken } from "react-native-fbsdk";
+import { type } from 'os';
 
 const {width, height} = Dimensions.get('window')
 const textInputWidth = 0.8 * width
@@ -136,8 +171,18 @@ class Main extends React.Component<MainProps> {
              </View>
              <View style={styles.bottomView}>
                 <Icon name={"facebook"} size={30} 
-                    onPress={(event) => {
+                    onPress={async (event) => {
                         Alert.alert(`Email = ${email}, password = ${password}`)
+                        try {
+                            // await AsyncStorage.setItem('email', email)
+                            // await AsyncStorage.setItem('password', password)
+                            debugger
+                            const x = await AsyncStorage.getItem('email')
+                            const y = await AsyncStorage.getItem('password')
+                            console.log(`x = ${x}, y = ${y}`)
+                        } catch (e) {
+                            console.log(`Error saving Storage: ${e}`)
+                        }
                         //this._loginFacebook()
                     }}
                     color="rgb(74, 102, 173)" 
